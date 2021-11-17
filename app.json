@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "pivoting-client",
+    "slug": "pivoting-client",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "pivoting-client"
+}
