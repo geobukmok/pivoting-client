@@ -20,3 +20,14 @@ expo install react-native-screens react-native-safe-area-context
 npx pod-install ios
 yarn add @react-navigation/native-stack
 ```
+
+Native 성능을 가져오기 위해 `@react-navigation/stack`대신 `@react-navigation/native-stack`를 사용하겠습니다.
+
+- Styled Component
+
+기존 React 개발과 유사하게 진행하게위해 StyledComponent를 사용하겠습니다.
+
+```bash
+yarn add styled-components
+yarn add  --save-dev @types/styled-components @types/styled-components-react-native
+```

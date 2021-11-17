@@ -8,14 +8,18 @@ import Chat from "./screens/Chat";
 import Feedback from "./screens/Feedback";
 import History from "./screens/History";
 import { NavigationContainer } from "@react-navigation/native";
-
 import { StatusBar } from "expo-status-bar";
+import styled from "styled-components/native";
+
+const SafeAreaViewContainer = styled(SafeAreaView)`
+  flex: 1;
+`;
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaViewContainer>
       <NavigationContainer>
         <StatusBar style="dark" />
         <Stack.Navigator
@@ -30,12 +34,6 @@ export default function App() {
           <Stack.Screen name="History" component={History} />
         </Stack.Navigator>
       </NavigationContainer>
-    </SafeAreaView>
+    </SafeAreaViewContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
