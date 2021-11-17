@@ -1,15 +1,23 @@
-import React from "react";
 import { SafeAreaView, StyleSheet } from "react-native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import Home from "./screens/Home";
-import Matching from "./screens/Matching";
 import Chat from "./screens/Chat";
 import Feedback from "./screens/Feedback";
 import History from "./screens/History";
+import Home from "./screens/Home";
+import Matching from "./screens/Matching";
 import { NavigationContainer } from "@react-navigation/native";
+import React from "react";
 import { StatusBar } from "expo-status-bar";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import styled from "styled-components/native";
+
+export type RootStackParamList = {
+  Home: undefined;
+  Matching: undefined;
+  Chat: undefined;
+  Feedback: undefined;
+  History: undefined;
+};
 
 const SafeAreaViewContainer = styled(SafeAreaView)`
   flex: 1;
