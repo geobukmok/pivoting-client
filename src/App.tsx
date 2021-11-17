@@ -7,6 +7,8 @@ import Matching from "./screens/Matching";
 import Chat from "./screens/Chat";
 import Feedback from "./screens/Feedback";
 import History from "./screens/History";
+import ChatResult from "./screens/ChatResult";
+
 import { NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import styled from "styled-components/native";
@@ -30,6 +32,7 @@ export default function App() {
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Matching" component={Matching} />
           <Stack.Screen name="Chat" component={Chat} />
+          <Stack.Screen name="ChatResult" component={ChatResult} />
           <Stack.Screen name="Feedback" component={Feedback} />
           <Stack.Screen name="History" component={History} />
         </Stack.Navigator>
