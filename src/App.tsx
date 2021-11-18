@@ -10,6 +10,7 @@ import History from "./screens/History";
 import { NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import styled from "styled-components/native";
+import Vote from "./screens/Vote";
 
 const SafeAreaViewContainer = styled(SafeAreaView)`
   flex: 1;
@@ -19,6 +20,7 @@ export type RootStackParamList = {
   Home: undefined;
   Matching: undefined;
   Chat: undefined;
+  Vote: undefined;
   Feedback: undefined;
   History: undefined;
 };
@@ -40,6 +42,16 @@ export default function App() {
           <Stack.Screen
             name="Chat"
             component={Chat}
+            options={{
+              headerShown: true,
+              headerBackVisible: false,
+              headerBackTitleVisible: false,
+              title: "", // TODO: Chat Header Hide하는 방법찾기
+            }}
+          />
+          <Stack.Screen
+            name="Vote"
+            component={Vote}
             options={{
               headerShown: true,
               headerBackVisible: false,

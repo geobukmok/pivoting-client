@@ -6,24 +6,23 @@ const Container = styled.View`
   flex-direction: row;
 `;
 
-const TopSectionLabelZone = styled.View`
+const MessageSection = styled.View`
   flex: 2;
   justify-content: center;
 `;
 
-const GeneralLabel = styled.Text`
+const Message = styled.Text`
   font-weight: 600;
-  width: 65%;
   font-size: 20px;
 `;
 
-const TopSectionTimerZone = styled.View`
+const TimerSection = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
 `;
 
-const Timer = styled.View`
+const TimerContainer = styled.View`
   padding: 10px 20px;
   border-radius: 50px;
   align-items: center;
@@ -43,30 +42,28 @@ const TimeText = styled.Text`
   color: #5073cd;
 `;
 
-interface GeneralChatHeaderProps {
+interface TimerHeaderProps {
   remainSeconds: number;
 }
 
-const GeneralChatHeader: React.FC<GeneralChatHeaderProps> = ({
-  remainSeconds,
-}) => {
+const TimerHeader: React.FC<TimerHeaderProps> = ({ remainSeconds }) => {
   const minute = Math.floor(remainSeconds / 60);
   const seconds = remainSeconds % 60;
   return (
     <Container>
-      <TopSectionLabelZone>
-        <GeneralLabel>자유롭게 이야기를 나누어 보세요.</GeneralLabel>
-      </TopSectionLabelZone>
-      <TopSectionTimerZone>
-        <Timer>
+      <MessageSection>
+        <Message>자유롭게 이야기를{"\n"}나누어 보세요.</Message>
+      </MessageSection>
+      <TimerSection>
+        <TimerContainer>
           <TimeLabel>남은대화시간</TimeLabel>
           <TimeText>
-            {minute}:{seconds / 10 > 0 ? seconds : "0" + seconds}
+            {minute}:{seconds / 10 >= 1 ? seconds : "0" + seconds}
           </TimeText>
-        </Timer>
-      </TopSectionTimerZone>
+        </TimerContainer>
+      </TimerSection>
     </Container>
   );
 };
 
-export default GeneralChatHeader;
+export default TimerHeader;

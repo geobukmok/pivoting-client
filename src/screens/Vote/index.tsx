@@ -3,9 +3,9 @@ import { Button } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../App";
 import styled from "styled-components/native";
-import TooltipFooter from "./TooltipFooter";
-import TimerHeader from "./TimerHeader";
-import ChatUserCardList from "./ChatUserCardList";
+import VotingHeader from "./VotingHeader";
+import VotingFooter from "./VotingFooter";
+import VoteUserCardList from "./VoteUserCardList";
 
 const Container = styled.View`
   flex: 1;
@@ -30,14 +30,9 @@ const BottomSection = styled.View`
   padding-left: 20px;
 `;
 
-const CHAT_DURATION_SECONDS = 60 * 5;
-const CHAT_DURATION_MILLISECONDS = CHAT_DURATION_SECONDS * 1000;
-
-const Chat: React.FC<NativeStackScreenProps<RootStackParamList, "Chat">> = ({
+const Chat: React.FC<NativeStackScreenProps<RootStackParamList, "Vote">> = ({
   navigation,
 }) => {
-  const [remainSec, setRemainSec] = useState<number>(CHAT_DURATION_SECONDS);
-
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -46,30 +41,16 @@ const Chat: React.FC<NativeStackScreenProps<RootStackParamList, "Chat">> = ({
     });
   }, [navigation]);
 
-  useEffect(() => {
-    const endTime = new Date().getTime() + CHAT_DURATION_MILLISECONDS;
-    let id: NodeJS.Timer;
-    id = setInterval(() => {
-      const ms = endTime - new Date().getTime();
-      const remain = Math.round(ms / 1000);
-      setRemainSec(remain);
-      if (remain <= 0) clearInterval(id);
-    }, 1000);
-    return () => {
-      clearInterval(id);
-    };
-  }, []);
-
   return (
     <Container>
       <TopSection>
-        <TimerHeader remainSeconds={remainSec} />
+        <VotingHeader />
       </TopSection>
       <MiddleSection>
-        <ChatUserCardList />
+        <VoteUserCardList />
       </MiddleSection>
       <BottomSection>
-        <TooltipFooter />
+        <VotingFooter selected={true} onSkip={() => {}} onSubmit={() => {}} />
       </BottomSection>
     </Container>
   );

@@ -1,15 +1,11 @@
 import React from "react";
 import { Image } from "react-native";
 import styled from "styled-components/native";
-import ProfileImage from "../../components/ProfileImage";
-
-// TODO Change SVG
-const TestSmileImg = require("../../img/smile_1.png");
-const MuteIcon = require("../../img/mute.png");
-const UnmuteIcon = require("../../img/unmute.png");
+import ProfileImage from "../../../components/ProfileImage";
+import { muteIcon, smileProfileImage, unmuteIcon } from "../../../utils/Image";
 
 interface ContainerProps {
-  on: boolean;
+  selected: boolean;
 }
 
 const Container = styled.View<ContainerProps>`
@@ -19,7 +15,7 @@ const Container = styled.View<ContainerProps>`
   border-radius: 20px;
   border-width: 5px;
   background-color: #f6f6f6;
-  border-color: ${({ on }) => (on ? "#5073cd" : "#f6f6f6")};
+  border-color: ${({ selected }) => (selected ? "#5073cd" : "#f6f6f6")};
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -44,19 +40,25 @@ const VoiceOnMark = styled.View`
 `;
 
 interface Props {
+  showActiveVoice?: boolean;
   voiceOn?: boolean;
 }
 
-const UserCard: React.FC<Props> = ({ voiceOn = false }) => {
+const ChatUserCard: React.FC<Props> = ({
+  voiceOn = false,
+  showActiveVoice = false,
+}) => {
   return (
-    <Container on={voiceOn}>
-      <ProfileImage size="md" image={TestSmileImg} />
+    <Container selected={voiceOn}>
+      <ProfileImage size="md" image={smileProfileImage} />
       <UserNameText>안녕하세요.</UserNameText>
-      <VoiceOnMark>
-        <Image source={voiceOn ? UnmuteIcon : MuteIcon} />
-      </VoiceOnMark>
+      {showActiveVoice && (
+        <VoiceOnMark>
+          <Image source={voiceOn ? unmuteIcon : muteIcon} />
+        </VoiceOnMark>
+      )}
     </Container>
   );
 };
 
-export default UserCard;
+export default ChatUserCard;
