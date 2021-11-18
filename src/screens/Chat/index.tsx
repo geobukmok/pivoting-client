@@ -1,9 +1,10 @@
-import React from "react";
-import { Button, View, Dimensions, Text } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Button } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../App";
 import styled from "styled-components/native";
 import UserCard from "./UserCard";
+import Tooltip from "./Tooltip";
 
 const ChatContainer = styled.View`
   flex: 1;
@@ -38,7 +39,6 @@ const Timer = styled.View`
   padding: 10px 20px;
   border-radius: 50px;
   align-items: center;
-  /* TODO: Change Color Constant */
   background-color: #f6f6f6;
 `;
 
@@ -69,53 +69,14 @@ const UserCardList = styled.View`
 
 const BottomSection = styled.View`
   flex: 1;
-  padding: 20px;
-  justify-content: flex-start;
-`;
-
-const TooltipLabel = styled.Text`
-  font-weight: 600;
-  font-size: 20px;
-`;
-
-const TooltipContainer = styled.View`
-  margin-top: 10px;
-  height: 80%;
-  width: 95%;
-  align-self: flex-end;
-  border-radius: 20px;
-  background-color: #f6f6f6;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 20px;
-`;
-
-const TooltipTitle = styled.Text`
-  width: 100%;
-  font-size: 12px;
-  font-weight: 500;
-`;
-
-const TooltipContent = styled.View`
-  width: 100%;
-  margin-top: 10px;
-  flex-direction: row;
-  justify-content: space-between;
-`;
-const TooltipContentText = styled.Text`
-  font-size: 15px;
-  font-weight: 500;
-`;
-
-const TooltipBubble = styled.Image`
-  position: absolute;
-  width: 100px;
-  height: 100px;
+  padding-right: 20px;
+  padding-left: 20px;
 `;
 
 const Chat: React.FC<NativeStackScreenProps<RootStackParamList, "Chat">> = ({
   navigation,
 }) => {
+  const [remainSec, setRemainSec] = useState<number>(0);
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -124,6 +85,23 @@ const Chat: React.FC<NativeStackScreenProps<RootStackParamList, "Chat">> = ({
     });
   }, [navigation]);
 
+  useEffect(() => {
+    const duration = 1000 * 60 * 5;
+    const endTime = new Date().getTime() + duration;
+    let id;
+    id = setInterval(() => {
+      const ms = endTime - new Date().getTime();
+      const remain = Math.round(ms / 1000);
+      setRemainSec(remain);
+      if (remain <= 0) clearInterval(id);
+    }, 1000);
+    return () => {
+      clearInterval(id);
+    };
+  }, []);
+
+  const minute = Math.floor(remainSec / 60);
+  const seconds = remainSec % 60;
   return (
     <ChatContainer>
       <TopSection>
@@ -134,29 +112,22 @@ const Chat: React.FC<NativeStackScreenProps<RootStackParamList, "Chat">> = ({
         <TopSectionTimerZone>
           <Timer>
             <TimeLabel>남은대화시간</TimeLabel>
-            <TimeText>10:00</TimeText>
+            <TimeText>
+              {minute}:{seconds / 10 > 0 ? seconds : "0" + seconds}
+            </TimeText>
           </Timer>
         </TopSectionTimerZone>
       </TopSection>
       <MiddleSection>
         <UserCardList>
-          <UserCard voiceOn={true} />
+          <UserCard />
           <UserCard voiceOn={true} />
           <UserCard />
           <UserCard />
         </UserCardList>
       </MiddleSection>
       <BottomSection>
-        <TooltipLabel>대화가 잘 이어지지 않나요?</TooltipLabel>
-        <TooltipContainer>
-          <TooltipTitle>지금 핫한 주제로 이야기해보세요.🔥</TooltipTitle>
-          <TooltipContent>
-            <TooltipContentText>오징어 게임</TooltipContentText>
-            <TooltipContentText>스우파</TooltipContentText>
-            <TooltipContentText>스파이더맨</TooltipContentText>
-            <TooltipContentText></TooltipContentText>
-          </TooltipContent>
-        </TooltipContainer>
+        <Tooltip />
       </BottomSection>
     </ChatContainer>
   );

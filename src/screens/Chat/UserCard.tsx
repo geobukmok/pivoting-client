@@ -1,8 +1,12 @@
 import React from "react";
+import { Image } from "react-native";
 import styled from "styled-components/native";
 import ProfileImage from "../../components/ProfileImage";
 
+// TODO Change SVG
 const TestSmileImg = require("../../img/smile_1.png");
+const MuteIcon = require("../../img/mute.png");
+const UnmuteIcon = require("../../img/unmute.png");
 
 interface ContainerProps {
   on: boolean;
@@ -27,6 +31,18 @@ const UserNameText = styled.Text`
   font-weight: 500;
 `;
 
+const VoiceOnMark = styled.View`
+  right: 5px;
+  top: 5px;
+  width: 26px;
+  height: 26px;
+  border-radius: 13px;
+  background-color: white;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+`;
+
 interface Props {
   voiceOn?: boolean;
 }
@@ -36,6 +52,9 @@ const UserCard: React.FC<Props> = ({ voiceOn = false }) => {
     <Container on={voiceOn}>
       <ProfileImage size="md" image={TestSmileImg} />
       <UserNameText>안녕하세요.</UserNameText>
+      <VoiceOnMark>
+        <Image source={voiceOn ? UnmuteIcon : MuteIcon} />
+      </VoiceOnMark>
     </Container>
   );
 };
