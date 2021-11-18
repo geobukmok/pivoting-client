@@ -1,14 +1,15 @@
-import React from "react";
-import { Image } from "react-native";
+import React, { useRef, useState } from "react";
+import { Animated, Image, PanResponder, View } from "react-native";
 import styled from "styled-components/native";
 import ProfileImage from "../../../components/ProfileImage";
-import { muteIcon, smileProfileImage, unmuteIcon } from "../../../utils/Image";
+import { muteIcon, smileProfileImage, unmuteIcon } from "../../../utils/images";
+import EmotionBox from "./EmotionBox";
 
 interface ContainerProps {
   selected: boolean;
 }
 
-const Container = styled.View<ContainerProps>`
+const Container = styled.TouchableOpacity<ContainerProps>`
   width: 45%;
   margin: 2.5%;
   height: 45%;
@@ -40,23 +41,25 @@ const VoiceOnMark = styled.View`
 `;
 
 interface Props {
-  showActiveVoice?: boolean;
   voiceOn?: boolean;
 }
 
-const ChatUserCard: React.FC<Props> = ({
-  voiceOn = false,
-  showActiveVoice = false,
-}) => {
+const ChatUserCard: React.FC<Props> = ({ voiceOn = false }) => {
+  const [isShownEmotionBox, setIsShownEmotionBox] = useState<boolean>(false);
+  const handleClick = () => {
+    setIsShownEmotionBox((prev) => !prev);
+  };
+  const closeEmotionBox = () => {
+    setIsShownEmotionBox(false);
+  };
   return (
-    <Container selected={voiceOn}>
+    <Container selected={voiceOn} onPress={() => handleClick()}>
       <ProfileImage size="md" image={smileProfileImage} />
       <UserNameText>안녕하세요.</UserNameText>
-      {showActiveVoice && (
-        <VoiceOnMark>
-          <Image source={voiceOn ? unmuteIcon : muteIcon} />
-        </VoiceOnMark>
-      )}
+      <VoiceOnMark>
+        <Image source={voiceOn ? unmuteIcon : muteIcon} />
+      </VoiceOnMark>
+      {isShownEmotionBox && <EmotionBox onClose={() => closeEmotionBox()} />}
     </Container>
   );
 };

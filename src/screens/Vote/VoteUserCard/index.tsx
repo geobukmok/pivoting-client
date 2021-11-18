@@ -2,7 +2,7 @@ import React from "react";
 import { Image } from "react-native";
 import styled from "styled-components/native";
 import ProfileImage from "../../../components/ProfileImage";
-import { smileProfileImage } from "../../../utils/Image";
+import { smileProfileImage } from "../../../utils/images";
 
 interface ContainerProps {
   selected: boolean;
