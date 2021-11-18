@@ -5,6 +5,7 @@ import { RootStackParamList } from "../../App";
 import styled from "styled-components/native";
 import UserCard from "./UserCard";
 import Tooltip from "./Tooltip";
+import TimerHeader from "./TimerHeader";
 
 const ChatContainer = styled.View`
   flex: 1;
@@ -12,8 +13,8 @@ const ChatContainer = styled.View`
 `;
 
 const TopSection = styled.View`
-  flex-direction: row;
   flex: 1;
+  flex-direction: row;
   padding-left: 20px;
   padding-right: 20px;
 `;
@@ -73,10 +74,13 @@ const BottomSection = styled.View`
   padding-left: 20px;
 `;
 
+const CHAT_DURATION_SECONDS = 60 * 5;
+const CHAT_DURATION_MILLISECONDS = CHAT_DURATION_SECONDS * 1000;
+
 const Chat: React.FC<NativeStackScreenProps<RootStackParamList, "Chat">> = ({
   navigation,
 }) => {
-  const [remainSec, setRemainSec] = useState<number>(0);
+  const [remainSec, setRemainSec] = useState<number>(CHAT_DURATION_SECONDS);
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -86,9 +90,8 @@ const Chat: React.FC<NativeStackScreenProps<RootStackParamList, "Chat">> = ({
   }, [navigation]);
 
   useEffect(() => {
-    const duration = 1000 * 60 * 5;
-    const endTime = new Date().getTime() + duration;
-    let id;
+    const endTime = new Date().getTime() + CHAT_DURATION_MILLISECONDS;
+    let id: NodeJS.Timer;
     id = setInterval(() => {
       const ms = endTime - new Date().getTime();
       const remain = Math.round(ms / 1000);
@@ -100,23 +103,11 @@ const Chat: React.FC<NativeStackScreenProps<RootStackParamList, "Chat">> = ({
     };
   }, []);
 
-  const minute = Math.floor(remainSec / 60);
-  const seconds = remainSec % 60;
   return (
     <ChatContainer>
       <TopSection>
-        {/* TODO: 조건적으로 타이머, 투표 타이머 */}
-        <TopSectionLabelZone>
-          <GeneralLabel>자유롭게 이야기를 나누어 보세요.</GeneralLabel>
-        </TopSectionLabelZone>
-        <TopSectionTimerZone>
-          <Timer>
-            <TimeLabel>남은대화시간</TimeLabel>
-            <TimeText>
-              {minute}:{seconds / 10 > 0 ? seconds : "0" + seconds}
-            </TimeText>
-          </Timer>
-        </TopSectionTimerZone>
+        {/* TODO: change Question Header */}
+        <TimerHeader remainSeconds={remainSec} />
       </TopSection>
       <MiddleSection>
         <UserCardList>
@@ -127,6 +118,7 @@ const Chat: React.FC<NativeStackScreenProps<RootStackParamList, "Chat">> = ({
         </UserCardList>
       </MiddleSection>
       <BottomSection>
+        {/* TODO: change Voting Submit button */}
         <Tooltip />
       </BottomSection>
     </ChatContainer>
