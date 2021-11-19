@@ -10,6 +10,7 @@ const Home = ({ navigation }) => {
         onPress={() => navigation.navigate("Matching")}
       />
       <Button title="Chat" onPress={() => navigation.navigate("Chat")} />
+      <Button title="Vote" onPress={() => navigation.navigate("Vote")} />
       <Button
         title="Feedback"
         onPress={() => navigation.navigate("Feedback")}
