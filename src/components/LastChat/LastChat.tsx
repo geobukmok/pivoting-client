@@ -36,6 +36,7 @@ const LastChat = ({ content, memberURL, date, elapsedTime }: Props) => {
   );
 };
 
+// FIXME: 추후 서버와 연동시 defaultProps 제거할 것
 LastChat.defaultProps = {
   content: "대화 스타일이\n점점 좋아지고 있어요!",
   memberURL: [
