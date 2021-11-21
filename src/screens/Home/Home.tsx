@@ -35,7 +35,7 @@ const Home = ({ navigation }: Props) => {
 
       <LaughGroup />
 
-      <TouchableOpacity onPress={() => navigation.navigate("Matching")}>
+      <TouchableOpacity onPress={() => navigation.navigate("MyPage")}>
         <SlideToPivoting />
       </TouchableOpacity>
 
