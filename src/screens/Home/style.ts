@@ -1,5 +1,11 @@
 import styled from "styled-components/native";
 
+import LaughGroupSVG from "../../assets/image/laugh-group.svg";
+import LogoSVG from "../../assets/image/logo.svg";
+import ProfileImageSVG from "../../assets/image/profile-image.svg";
+import SlideToPivotingSVG from "../../assets/image/slide-to-pivoting.svg";
+import UpperArrowSVG from "../../assets/image/upper-arrow.svg";
+
 export const Container = styled.View`
   width: 100%;
   height: 100%;
@@ -12,9 +18,7 @@ export const IntroSection = styled.View`
   margin: 12% 4% 0 4%;
 `;
 
-export const Logo = styled.Image`
-  width: 124px;
-  height: 18px;
+export const Logo = styled(LogoSVG)`
   margin-bottom: 12%;
 `;
 
@@ -31,35 +35,27 @@ export const WaitingParagraph = styled.Text`
   line-height: 27px;
 `;
 
-export const ProfileImage = styled.Image`
+export const ProfileImage = styled(ProfileImageSVG)`
   position: absolute;
   right: 0;
   bottom: 60px;
-
-  width: 63px;
-  height: 63px;
 `;
 
 export const Bold = styled.Text`
   font-weight: 700;
 `;
 
-export const LaughGroup = styled.Image`
-  width: 100%;
-  height: 41%;
+export const LaughGroup = styled(LaughGroupSVG)`
   margin-top: 5%;
 `;
 
-export const UpperArrow = styled.Image`
+export const UpperArrow = styled(UpperArrowSVG)`
   position: absolute;
   align-self: center;
   bottom: 5%;
-
-  width: 12px;
-  height: 4px;
 `;
 
-export const SlideToPivoting = styled.Image`
-  height: 60px;
+export const SlideToPivoting = styled(SlideToPivotingSVG)`
+  margin: 0 auto;
   margin-top: 6%;
 `;
