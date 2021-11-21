@@ -1,3 +1,9 @@
+import React from "react";
+import { TouchableOpacity } from "react-native-gesture-handler";
+
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+
+import { RootStackParamList } from "../../App";
 import {
   Bold,
   Container,
@@ -11,16 +17,11 @@ import {
   WaitingParagraph,
 } from "./style";
 
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import React from "react";
-import { RootStackParamList } from "../../App";
-import { TouchableOpacity } from "react-native-gesture-handler";
-
 type Props = NativeStackScreenProps<RootStackParamList, "Home">;
 
 const Home = ({ navigation }: Props) => {
   // TODO: 환경변수로 빼려고 합니다.
-  const host = `http://192.168.35.5:19000`;
+  const host = `http://192.168.35.250:19000`;
 
   const logoURI = `${host}/src/assets/image/logo.png`;
   const laughGroupURI = `${host}/src/assets/image/laugh-group.png`;
